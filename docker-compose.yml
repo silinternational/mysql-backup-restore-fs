@@ -12,7 +12,7 @@ services:
     # MYSQL_USER - database user
     # MYSQL_PASSWORD - database user password
     db:
-        image: silintl/mariadb:latest
+        image: mariadb:10
         volumes_from:
             - data
         ports:
