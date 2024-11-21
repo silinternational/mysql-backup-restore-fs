@@ -1,11 +1,5 @@
 version: '2'
 services:
-    data:
-        image: silintl/data-volume:latest
-        volumes:
-          - ./application:/data
-          - ./mybackups:/backup
-
     # See https://hub.docker.com/_/mariadb/ for details of the MariaDB image.
     # MYSQL_DATABASE - name of database
     # MYSQL_ROOT_PASSWORD - superuser password for MariaDB
@@ -13,8 +7,9 @@ services:
     # MYSQL_PASSWORD - database user password
     db:
         image: mariadb:10
-        volumes_from:
-            - data
+        volumes:
+          - ./application:/data
+          - ./mybackups:/backup
         ports:
             - "3306"
         environment:
@@ -36,8 +31,9 @@ services:
     # DB_NAME - name of database to back up/restore
     restore:
         build: ./
-        volumes_from:
-            - data
+        volumes:
+          - ./application:/data
+          - ./mybackups:/backup
         environment:
             MYSQL_HOST: db
             MYSQL_USER: root
@@ -48,8 +44,9 @@ services:
 
     backup:
         build: ./
-        volumes_from:
-            - data
+        volumes:
+          - ./application:/data
+          - ./mybackups:/backup
         environment:
             MYSQL_HOST: db
             MYSQL_USER: root
