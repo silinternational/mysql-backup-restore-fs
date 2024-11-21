@@ -31,7 +31,7 @@ services:
     # DB_NAME - name of database to back up/restore
     restore:
         build: ./
-        vvolumes:
+        volumes:
           - ./application:/data
           - ./mybackups:/backup
         environment:
