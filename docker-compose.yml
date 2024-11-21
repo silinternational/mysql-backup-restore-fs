@@ -31,8 +31,9 @@ services:
     # DB_NAME - name of database to back up/restore
     restore:
         build: ./
-        volumes_from:
-            - data
+        vvolumes:
+          - ./application:/data
+          - ./mybackups:/backup
         environment:
             MYSQL_HOST: db
             MYSQL_USER: root
@@ -43,8 +44,9 @@ services:
 
     backup:
         build: ./
-        volumes_from:
-            - data
+        volumes:
+          - ./application:/data
+          - ./mybackups:/backup
         environment:
             MYSQL_HOST: db
             MYSQL_USER: root
